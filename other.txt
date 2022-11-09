@@ -1,0 +1,70 @@
+# 报错：UnicodeDecodeError: 'gbk' codec can't decode byte 0xd7 in position 5720: illegal multibyte sequence
+# 解决：res.content.decode('gbk', errors='ignore')
+
+# 自动下滑
+def drop_down():
+    for x in range(1, 10, 2):
+        time.sleep(0.5)
+        j = x / 9
+        js = 'document.documentElement.scrollTop = document.documentElement.scrollHeight * %f' % j
+        chrome.execute_script(js)
+
+
+from selenium.webdriver import Chrome, ChromeOptions
+# 加启动配置
+option = ChromeOptions()
+# 配置无界面的谷歌浏览器
+# option.add_argument('--headless')
+# option.add_argument('--disable-gpu')
+# 启动开发者模式(关闭chrome控制)
+option.add_experimental_option("excludeSwitches", ["enable-automation"])
+option.add_experimental_option("useAutomationExtension", 'False')
+
+
+# 跳过普通滑块验证
+# chrome的版本号小于88，在你启动浏览器的时候（此时没有加载任何网页内容），向页面嵌入js代码，去掉webdriver。
+driver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument",  {
+    "source": """Object.defineProperty(navigator, 'webdriver', {get: () => undefined})"""
+    })
+# chrome的版本大于等于88
+option = Options()
+option.add_experimental_option('excludeSwitches', ['enable-automation']
+option.add_argument('--disable-blink-features=AutomationControlled')
+web = Chrome(options=option)
+
+# 验证码识别
+# https://github.com/sml2h3/ddddocr
+import ddddocr
+ocr = ddddocr.DdddOcr()
+with open("code.png", 'rb') as f:
+    image = f.read()
+code = ocr.classification(image)
+print(code)
+------
+import pytesseract
+result = pytesseract.image_to_string('img.png', lang='chi_sim')
+
+
+# ob混淆一键还原
+# https://github.com/Tsaiboss/decodeObfuscator
+node main.js Medium.js 666.js
+# https://github.com/DingZaiHub/ob-decrypt
+
+
+"""百度AI"""
+from aip import AipOcr
+APP_ID = '27751139'
+API_KEY = 'kI9mTb6OhcW0ntr1TxEMdiRx'
+SECRET_KEY = 'C8UoFUSMQseQiRszqqPBkvBT0XjtGaz1'
+client = AipOcr(APP_ID, API_KEY, SECRET_KEY)
+with open('img.png', 'rb') as f:
+    img_content = f.read()
+result = client.basicGeneral(img_content)
+res_list = []
+for res in result['words_result']:
+    res_list.extend(res['words'])
+    print(res['words'])
+print(len(res_list))
+
+
+
