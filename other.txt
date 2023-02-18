@@ -55,7 +55,7 @@ node main.js Medium.js 666.js
 from aip import AipOcr
 APP_ID = '27751139'
 API_KEY = 'kI9mTb6OhcW0ntr1TxEMdiRx'
-SECRET_KEY = 'C8UoFUSMQseQiRszqqPBkvBT0XjtGaz1'
+SECRET_KEY = ''
 client = AipOcr(APP_ID, API_KEY, SECRET_KEY)
 with open('img.png', 'rb') as f:
     img_content = f.read()
