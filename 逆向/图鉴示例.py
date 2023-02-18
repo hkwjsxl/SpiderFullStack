@@ -17,8 +17,8 @@ def base64_api(uname, pwd, img, typeid):
 
 
 if __name__ == "__main__":
-    img_path = "C:/Users/Administrator/Desktop/file.jpg"
-    result = base64_api(uname='hkwJsxl', pwd='h20020224', img=img_path, typeid=1005)
+    img_path = "./code.png"
+    result = base64_api(uname='hkwJsxl', pwd='', img=img_path, typeid=1005)
     print(result)
 
 # 一、图片文字类型(默认 3 数英混合)：
