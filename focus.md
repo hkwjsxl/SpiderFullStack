@@ -55,8 +55,6 @@ option = ChromeOptions()
 # 启动开发者模式(关闭chrome控制)
 option.add_experimental_option("excludeSwitches", ["enable-automation"])
 option.add_experimental_option("useAutomationExtension", 'False')
-
-
 # 跳过普通滑块验证
 # chrome的版本号小于88，在你启动浏览器的时候（此时没有加载任何网页内容），向页面嵌入js代码，去掉webdriver。
 driver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument",  {
@@ -67,6 +65,43 @@ option = Options()
 option.add_experimental_option('excludeSwitches', ['enable-automation']
 option.add_argument('--disable-blink-features=AutomationControlled')
 web = Chrome(options=option)
+
+"""selenium模板"""
+from selenium.webdriver import Chrome
+from selenium.webdriver.support import expected_conditions as EC # 等待操作需要导入的库
+from selenium.webdriver.common.action_chains import ActionChains # 用于完成一系列操作
+from selenium.webdriver.support.wait import WebDriverWait # 等待某个特定的操作
+from selenium.webdriver.chrome.options import Options # 设置参数
+from selenium.webdriver.support.select import Select # 专门用于处理下拉框
+from selenium.webdriver.common.keys import Keys # 所有按键的指令
+from selenium.webdriver.common.by import By # 指定搜索方法
+import time
+# 内核驱动参数
+options = Options()
+# 处理 SSL 证书错误问题、隐藏自动化操作、忽略无用的日志、禁用 GPU（默认添加）
+options.add_argument('--ignore-certificate-errors')
+options.add_argument('--ignore-ssl-errors')
+options.add_argument('--disable-blink-features=AutomationControlled')
+options.add_experimental_option("excludeSwitches", ['enable-automation', 'enable-logging'])
+options.add_argument('--disable-gpu')
+# 无头浏览器，窗口调大，防止样式堆叠
+options.add_argument("--headless")
+options.add_argument("--window-size=4000,1600")
+# 初始化
+web = Chrome(options=options)
+# 进入网站
+web.get("http://www.baidu.com")
+# 全局隐式等待 5 秒，即获取元素的函数超过 5 秒就报错超时
+web.implicitly_wait(5)
+"""
+# 需要完成的操作
+xxxxxxxxxxxxxxxx
+"""
+# 静待 10 秒，用于查阅页面
+time.sleep(10)
+# 关闭整个驱动
+web.quit()
+
 ~~~
 
 ##  pd生成时间序列
